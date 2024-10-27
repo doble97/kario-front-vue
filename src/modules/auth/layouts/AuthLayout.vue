@@ -1,15 +1,17 @@
 <template>
-  <header>
-    <nav class="bg-red-500 flex justify-center">
-      <ul class="menu menu-horizontal bg-base-200">
-        <li><RouterLink :to="{ name: 'login' }">Login</RouterLink></li>
-        <li><RouterLink to="/register">Register</RouterLink></li>
-        <!-- <li><RouterLink :to="'/register'">Register</RouterLink></li> -->
-      </ul>
-    </nav>
-  </header>
-  <div>
-    <RouterView />
+  <div class="h-screen flex flex-col">
+    <header>
+      <nav class="flex justify-center">
+        <ul class="menu menu-horizontal bg-base-200">
+          <li><RouterLink :to="{ name: 'login' }">Login</RouterLink></li>
+          <li><RouterLink to="/register">Register</RouterLink></li>
+          <!-- <li><RouterLink :to="'/register'">Register</RouterLink></li> -->
+        </ul>
+      </nav>
+    </header>
+    <main class="flex-1 flex justify-center items-center">
+      <RouterView />
+    </main>
   </div>
 </template>
 
