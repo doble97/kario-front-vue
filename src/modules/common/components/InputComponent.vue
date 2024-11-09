@@ -1,25 +1,46 @@
 <template>
-  <label class="input input-bordered flex items-center gap-2">
+  <label class="input input-bordered flex items-center gap-2 join-item">
     <slot></slot>
-    <input required :type="type" class="grow" :placeholder="placeholder" />
+    <input
+      :type="type"
+      :placeholder="placeholder"
+      :value="inputValue"
+      :name="name"
+      @input="handleChange"
+      @blur="handleBlur"
+    />
   </label>
+  <span v-if="errorMessage && meta.touched" class="text-pink-900">{{
+    errorMessage
+  }}</span>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { InputTypes } from '../interfaces/input_types'
+import { useField } from 'vee-validate'
+import { toRef } from 'vue'
 
 interface Props {
   placeholder: string
-  type: string
+  type?: string
+  value?: string
+  name: string
 }
-const props = defineProps<Props>()
 
-onMounted(() => {
-  console.log('Componente montado')
-  console.log(props.type, typeof props.type)
-  console.log(InputTypes.number)
+const props = withDefaults(defineProps<Props>(), {
+  type: 'text',
+  value: undefined,
 })
+
+const name = toRef(props, 'name')
+
+const {
+  value: inputValue,
+  errorMessage,
+  meta,
+  handleChange,
+  handleBlur,
+} = useField(name, undefined, { initialValue: props.value })
 </script>
+import * as yup from 'yup'
 
 <style scoped></style>
